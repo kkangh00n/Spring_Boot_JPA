@@ -15,8 +15,9 @@ public class MemberRepository {
 //    @PersistenceContext                       //엔티티매니저 주입
     private final EntityManager em;
 
-    public void save(Member member){
+    public Long save(Member member){
         em.persist(member);
+        return member.getId();
     }
 
     public Member findOne(Long id){
