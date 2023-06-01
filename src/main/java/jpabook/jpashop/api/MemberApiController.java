@@ -33,7 +33,7 @@ public class MemberApiController {
     }
 
     //수정 API
-    @PutMapping("/api/v2/members/{id}")
+    @PatchMapping("/api/v2/members/{id}")
     public UpdateMemberResponse updateMemberV2(@PathVariable("id") Long id, @RequestBody @Valid UpdateMemberRequest request){
         memberService.update(id, request.getName());
         Member findMember = memberService.findOne(id);
