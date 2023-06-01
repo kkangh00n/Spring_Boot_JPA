@@ -22,7 +22,7 @@ public class MemberApiController {
         return new CreateMemberResponse(id);
     }
 
-    @PostMapping()
+    @PostMapping("/api/v2/members")
     public CreateMemberResponse saveMemberV2(@RequestBody @Valid CreateMemberRequest request){
         Member member = new Member();
         member.setName(request.getName());
