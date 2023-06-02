@@ -27,6 +27,10 @@ public class OrderRepository {
         return em.find(Order.class, id);
     }
 
+    public List<Order> findAll(){
+        return em.createQuery("select o from Order o", Order.class).getResultList();
+    }
+
 
     //검색 -> 동적 쿼리를 이용 -> 몰라도 됨
     //뒤에서 QueryDsl을 이용
