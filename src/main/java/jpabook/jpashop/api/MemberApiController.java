@@ -2,7 +2,7 @@ package jpabook.jpashop.api;
 
 import jakarta.validation.Valid;
 import jpabook.jpashop.domain.Member;
-import jpabook.jpashop.domain.dto.*;
+import jpabook.jpashop.domain.dto.memberDto.*;
 import jpabook.jpashop.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
