@@ -3,10 +3,11 @@ package jpabook.jpashop.domain.dto;
 import jpabook.jpashop.domain.Address;
 import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderStatus;
-import lombok.Builder;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
+@Data
 public class SimpleOrderDto {
     private Long orderId;
     private String name;
