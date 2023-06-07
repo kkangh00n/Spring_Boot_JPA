@@ -5,6 +5,8 @@ import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.Order;
+import jpabook.jpashop.domain.dto.orderQueryDto.OrderItemQueryDto;
+import jpabook.jpashop.domain.dto.orderQueryDto.OrderQueryDto;
 import jpabook.jpashop.domain.dto.orderSimpleDto.OrderSimpleQueryDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -89,4 +91,32 @@ public class OrderRepository {
                 .setMaxResults(limit)
                 .getResultList();
     }
+
+    public List<OrderQueryDto> findOrderQueryDtos(){
+        List<OrderQueryDto> result = findOrders();
+
+        result.forEach(o -> {
+            List<OrderItemQueryDto> orderItems = findOrderItems(o.getOrderId());
+            o.setOrderItems(orderItems);
+        });
+        return result;
+    }
+
+    private List<OrderItemQueryDto> findOrderItems(Long orderId) {
+        return em.createQuery("select new jpabook.jpashop.domain.dto.orderQueryDto.OrderItemQueryDto(oi.order.id, i.name, oi.orderPrice, oi.count)" +
+                " from OrderItem oi" +
+                " join oi.item i" +
+                " where oi.order.id = :orderId", OrderItemQueryDto.class)
+                .setParameter("orderId", orderId)
+                .getResultList();
+    }
+
+    private List<OrderQueryDto> findOrders() {
+        return em.createQuery("select new jpabook.jpashop.domain.dto.orderQueryDto.OrderQueryDto(o.id, m.name, o.orderDate, o.status, d.address)" +
+                " from Order o" +
+                " join o.member m" +
+                " join o.delivery d", OrderQueryDto.class)
+                .getResultList();
+    }
+
 }
